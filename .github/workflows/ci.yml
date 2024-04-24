@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main # Change this to match your default branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Build Docker image
+      run: docker build --file Dockerfile --tag my-flask-app .
+
+    - name: Run tests
+      run: |
+        # Add your test commands here
+        # For example, you can run unit tests using pytest
+        # Replace <test_command> with the actual command to run tests
+        docker run --rm my-flask-app pytest
